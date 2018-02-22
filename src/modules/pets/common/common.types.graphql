@@ -1,0 +1,69 @@
+scalar DateTime
+
+scalar Upload
+
+type Query {
+  getOwnerById(_id: ID!): Owner
+  getOwners: [Owner]
+
+  getPetById(_id: ID!): Pet
+  getImage(id: ID!): String
+}
+
+type Mutation {
+  createPet(name: String!, image: String!, species: PetSpeciesInput!, age: Int, owner: String!, dateAdopted: DateTime): Owner
+  updatePet(_id: ID!, name: String, species: PetSpeciesInput, age: Int ): Owner
+
+  updatePetsOwner(petID: ID!, owner: ID!): Owner
+  deletePet(_id: ID!): Pet
+
+  createOwner(first_name: String!, last_name: String!, mobile: String, email: String ): Owner
+  updateOwner(first_name: String, last_name: String, mobile: String, email: String, _id: ID!): Owner
+  deleteOwner(_id: ID!): Owner
+
+  uploadProfilePicture(id: Int!, fileNames: [String!]!): String
+}
+
+input PetSpeciesInput {
+  speciesName: String!
+  speciesFamily: String
+  speciesType: SpeciesTypeEnum!
+}
+
+type PetSpecies {
+  speciesName: String!
+  speciesFamily: String
+  speciesType: SpeciesTypeEnum
+}
+
+type Owner {
+  _id: ID!
+  first_name: String
+  last_name: String
+  mobile: String
+  email: String
+  pets: [Pet]
+}
+
+type Pet {
+  _id: ID!
+  name: String
+  species: PetSpecies
+  age: Int
+  image: Image
+  dateAdopted: DateTime
+}
+
+enum SpeciesTypeEnum {
+  BIRD
+  MAMMAL
+  BUG
+  FISH
+}
+
+type Image {
+  filename: String
+  contentType: String
+  encoding: String
+  Buffer: String
+}
