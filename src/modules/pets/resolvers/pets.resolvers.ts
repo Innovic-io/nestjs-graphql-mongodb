@@ -1,9 +1,9 @@
-import { Mutation, Query, ResolveProperty, Resolver} from '@nestjs/graphql';
+import { Mutation, Query, ResolveProperty, Resolver } from '@nestjs/graphql';
 import { ApolloError } from 'apollo-client';
+import { ObjectID } from 'mongodb';
 
 import { IPet } from '../interfaces/pet.interface';
 import { OwnerService } from '../services/owner.service';
-import { ObjectID } from 'mongodb';
 import { WRONG_ID_ERROR } from '../common/common.constants';
 
 @Resolver('Pet')
@@ -12,7 +12,7 @@ export class PetsResolvers {
   constructor(private readonly ownerService: OwnerService) {}
 
   @Query()
-  async getPetById(obj, { _id }) {
+  async getPetById(request, { _id }) {
 
     if (!ObjectID.isValid(_id)) {
       throw new ApolloError(WRONG_ID_ERROR);
@@ -23,6 +23,7 @@ export class PetsResolvers {
     if (!result) {
       return null;
     }
+
     const [ pet ] = result.pets;
 
     return pet;
@@ -30,14 +31,14 @@ export class PetsResolvers {
   /**
    * Create new Pet
    *
-   * @param obj
+   * @param request
    * @param {IPet} pet
    * @param context?
    * @param info?
    * @returns {Promise<any>}
    */
   @Mutation()
-  async createPet(obj, pet: IPet, context?, info?) {
+  async createPet(request, pet: IPet, context?, info?) {
 
     if (!ObjectID.isValid(pet.owner)) {
 
@@ -52,14 +53,14 @@ export class PetsResolvers {
   /**
    * Update Pet data
    *
-   * @param obj
+   * @param request
    * @param {IPet} pet
    * @param context?
    * @param info?
    * @returns {Promise<Default | undefined>}
    */
   @Mutation()
-  async updatePet(obj, pet: IPet, context?, info?) {
+  async updatePet(request, pet: IPet, context?, info?) {
 
     if (!ObjectID.isValid(pet._id) || !ObjectID.isValid(pet.owner)) {
       throw new ApolloError(WRONG_ID_ERROR);
@@ -71,7 +72,7 @@ export class PetsResolvers {
   /**
    * Change Pets Owner
    *
-   * @param obj
+   * @param request
    * @param {any} petID
    * @param {any} owner
    * @param context?
@@ -79,7 +80,7 @@ export class PetsResolvers {
    * @returns {Promise<any>}
    */
   @Mutation()
-  async updatePetsOwner(obj, { petID, owner }, context?, info?) {
+  async updatePetsOwner(request, { petID, owner }, context?, info?) {
 
     if (!ObjectID.isValid(owner) || !ObjectID.isValid(petID)) {
 
@@ -94,14 +95,14 @@ export class PetsResolvers {
   /**
    * remove Pet from Owner
    *
-   * @param obj
+   * @param request
    * @param {any} _id
    * @param context?
    * @param info?
    * @returns {Promise<IPet>}
    */
   @Mutation()
-  async deletePet(obj, { _id }, context?, info?): Promise<IPet> {
+  async deletePet(request, { _id }, context?, info?): Promise<IPet> {
 
     if (!ObjectID.isValid(_id)) {
 

@@ -22,7 +22,7 @@ export class OwnersResolvers {
   }
 
   @Query()
-  async getOwnerById(obj, { _id }) {
+  async getOwnerById(request, { _id }) {
 
     if (!ObjectID.isValid(_id)) {
 
@@ -35,14 +35,14 @@ export class OwnersResolvers {
   /**
    * Create new Owner
    *
-   * @param obj
+   * @param request
    * @param {IOwner} args
    * @param context?
    * @param info?
    * @returns {Promise<any>}
    */
   @Mutation()
-  async createOwner(obj, args: IOwner, context?, info?) {
+  async createOwner(request, args: IOwner, context?, info?) {
 
     return await this.ownerService.create(args);
   }
@@ -50,14 +50,14 @@ export class OwnersResolvers {
   /**
    * Update Owner data
    *
-   * @param obj
+   * @param request
    * @param {IOwner} args
    * @param context?
    * @param info?
    * @returns {Promise<IOwner>}
    */
   @Mutation()
-  async updateOwner(obj, args: IOwner, context?, info?) {
+  async updateOwner(request, args: IOwner, context?, info?) {
 
     if (!ObjectID.isValid(args._id)) {
 
@@ -70,14 +70,14 @@ export class OwnersResolvers {
   /**
    * Delete Owner from DB
    *
-   * @param obj
+   * @param request
    * @param {any} _id
    * @param context
    * @param info
    * @returns {Promise<Default | undefined>}
    */
   @Mutation()
-  async deleteOwner(obj, { _id }, context?, info?) {
+  async deleteOwner(request, { _id }, context?, info?) {
 
     if (!ObjectID.isValid(_id)) {
 
@@ -110,7 +110,7 @@ export class OwnersResolvers {
   }
 
   @Query()
-  async getImage(obj, { id }) {
+  async getImage(request, { id }) {
 
     return await this.ownerService.getPicture(id);
   }

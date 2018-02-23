@@ -11,7 +11,7 @@ type Query {
 }
 
 type Mutation {
-  createPet(name: String!, image: String!, species: PetSpeciesInput!, age: Int, owner: String!, dateAdopted: DateTime): Owner
+  createPet(name: String!, image: String, species: PetSpeciesInput!, age: Int, owner: String!, dateAdopted: DateTime): Owner
   updatePet(_id: ID!, name: String, species: PetSpeciesInput, age: Int ): Owner
 
   updatePetsOwner(petID: ID!, owner: ID!): Owner

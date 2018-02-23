@@ -22,14 +22,7 @@ export class OwnerService {
 
   async create(owner) {
 
-    const toPush = Object.assign({}, owner,
-      {
-        email: owner.email || 'N/A',
-        mobile: owner.mobile || 'N/A',
-        pets: [],
-      });
-
-    const op = await this.dbService.collection(this.collectionName).insertOne(toPush);
+    const op = await this.dbService.collection(this.collectionName).insertOne(owner);
 
     const [addedOwner] = op.ops;
 
