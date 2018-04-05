@@ -6,7 +6,7 @@ GraphQL starter based on MongoDB and NestJS
 
 ###Owner examples
 ####Create Owner
-```qraphql
+```graphql
 mutation {
   createOwner(first_name: "Boris",
   last_name: "Yurinov") {
@@ -17,7 +17,7 @@ mutation {
 }
 ```
 ####Update Owner by his ID 
-```qraphql
+```graphql
 mutation {
   updateOwner(_id:"{{ownerID}}",
     first_name: "Boris",
@@ -31,7 +31,7 @@ mutation {
 }
 ```
 ####Get all Owners
-```qraphql
+```graphql
 {
   getOwners {
     first_name
@@ -46,7 +46,7 @@ mutation {
 }
 ```
 ####Get owner by his ID
-```qraphql
+```graphql
 {
   getOwnerById(_id: "{{ownerID}}") {
     first_name
@@ -61,7 +61,7 @@ mutation {
 }
 ```
 ####Delete owner by his ID
-```qraphql
+```graphql
 mutation {
   deleteOwner(_id:"{{ownerID}}") {
     first_name
@@ -73,7 +73,7 @@ mutation {
 
 ###Pet examples
 ####Create Pet
-```qraphql
+```graphql
 mutation {
   createPet(owner:"{{ownerID}}",
   name: "Silvester",
@@ -96,7 +96,7 @@ mutation {
 }
 ```
 ####Update pet by ID
-```qraphql
+```graphql
 mutation {
   updatePet(_id: "{{petId}}", 
   age: 3,
@@ -113,7 +113,7 @@ mutation {
 }
 ```
 ####Get pet by ID
-```qraphql
+```graphql
 {
   getPetById(_id: "{{petID}}") { 
     name 
@@ -126,7 +126,7 @@ mutation {
 }
 ```
 ####Delete pet by ID
-```qraphql
+```graphql
 mutation {
   deletePet(_id: "{{petId}}") {
     name
@@ -138,7 +138,7 @@ mutation {
 ```
 
 ###Fragment example
-```qraphql
+```graphql
 fragment OwnerInfo on Owner {
   first_name
   last_name
